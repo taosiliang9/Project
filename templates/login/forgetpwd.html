@@ -1,0 +1,52 @@
+{% load static %}
+
+
+
+<h3>密码重置</h3>
+<p>密码忘记填写表单重置</p>
+<form method="post" action="/forgetpwd/" autocomplete="off">
+    <input name="email" value="{% if forgetpwd_form.email.value %}{{ forgetpwd_form.email.value }}{% endif %}" type="email" class="form-control" placeholder="请输入注册时的邮箱" required="">
+    {% if forgetpwd_form.errors.email %}
+        <span class="help-block m-b-none"> {{ forgetpwd_form.errors.email.as_text }}</span>
+    {% endif %}
+
+    <div class="input-group">
+        <input type="text" name="captcha_1" required="" id="id_captcha_1" class="form-control" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" style="width: 75%" placeholder="验证码">
+        <img  style="width: 25%; float: left; margin-top: 15px;height: 30px" src="{{ image_url }}" alt="captcha" class="captcha">
+        <input type="hidden" name="captcha_0" value="{{ hashkey }}" required="" id="id_captcha_0">
+    </div>
+
+    {# register_form.captcha #} <!-- 可以使用register_form表单自动生成表单框和验证码图片 -->
+    {#【{{ image_url }}、{{ hashkey }}】#}
+
+    {% if forgetpwd_form.errors.captcha %}
+        <span class="help-block m-b-none"> {{ forgetpwd_form.errors.captcha.as_text }}</span>
+    {% endif %}
+
+    {% csrf_token %}
+
+    {% if msg %}
+        <br>
+        <div class="alert alert-danger" style="padding: 5px;">
+            {{ msg }}
+        </div>
+    {% endif %}
+
+	<button type="submit" class="btn btn-primary block full-width m-b">发 送</button>
+
+	<p class="text-muted text-center"><small>想起来了？</small><a href="/login/">点此登录</a>
+	</p>
+</form>
+
+
+
+
+
+    <script>
+        $('.captcha').click(function () {
+        $.getJSON("/captcha/refresh/", function (result) {
+            $('.captcha').attr('src', result['image_url']);
+            $('#id_captcha_0').val(result['key'])
+        });
+    });
+    </script>
