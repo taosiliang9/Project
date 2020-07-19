@@ -9,6 +9,12 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
+"""
+author: taosiliang
+create: time: 2020-07-09
+update：time: 2020-07-11
+"""
+
 
 import os
 

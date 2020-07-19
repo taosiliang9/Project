@@ -1,3 +1,10 @@
+"""
+author: taosiliang
+create: time: 2020-07-09
+update：time: 2020-07-11
+"""
+
+
 from django import forms
 from captcha.fields import CaptchaField
 
@@ -31,4 +38,5 @@ class ModifyPwdForm(forms.Form):
     password1 = forms.CharField(required=True, min_length=5)
     # 密码不能小于5位
     password2 = forms.CharField(required=True, min_length=5)
+
 

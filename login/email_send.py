@@ -1,3 +1,12 @@
+"""
+author: taosiliang
+create: time: 2020-07-09
+update：time: 2020-07-11
+"""
+
+
+
+
 from login.models import EmailVerifyRecord
 from random import Random
 from mysite_login.settings import EMAIL_FROM

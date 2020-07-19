@@ -1,3 +1,10 @@
+"""
+author: taosiliang
+create: time: 2020-07-09
+update：time: 2020-07-11
+"""
+
+
 # login/views.py
 
 from django.shortcuts import render,reverse, redirect
@@ -70,7 +77,7 @@ def register(request):
 
                 new_user = models.User.objects.create()
                 new_user.name = username
-                new_user.password = password1
+                new_user.password = make_password(password1)
                 new_user.email = email
                 new_user.sex = sex
                 new_user.save()
@@ -177,8 +184,8 @@ class ModifypwdView(View):
         modifypwd_form = ModifyPwdForm(request.POST)
 
         if modifypwd_form.is_valid():
-            pwd1 = request.POST.get("password", "")
-            pwd2 = request.POST.get("re_password", "")
+            pwd1 = request.POST.get("password1", "")
+            pwd2 = request.POST.get("password2", "")
             email = request.POST.get("email", "")
             # 如果两次密码不相等，返回错误信息
             if pwd1 != pwd2:
@@ -199,6 +206,6 @@ class ModifypwdView(View):
             email = request.POST.get("email", "")
             return render(request, 'login/pwdreset.html',
                           {
-                              'email': email,
-                              'modifypwd_form': modifypwd_form,
+                             'email': email,
+                             'modifypwd_form': modifypwd_form,
                           })
